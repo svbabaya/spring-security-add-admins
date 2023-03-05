@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make admin</title>
+</head>
+<body>
+
+<div th:unless="${people.isEmpty()}">
+
+    <div th:each="person : ${people}">
+        <form th:method="POST" th:action="@{/auth/makeAdmin}" th:object="${person}">
+            <div th:text="${person.getName() + ', ' + person.getAge() + ', ' + person.getRole()}"/>
+            <label>Make admin:
+                <input type="hidden" name="idPerson" th:value="${person.getId()}"/>
+                <input type="checkbox" name="confirm" th:checked="${confirm}"/>
+                <input type="submit" value="Save role!"/>
+            </label>
+        </form>
+        <br/>
+    </div>
+
+</div>
+
+<div th:if="${people.isEmpty()}">
+    <b>None USERS, all ADMINS!</b>
+</div>
+
+
+<hr/>
+<a href="/people">All users</a>
+</body>
+</html>
